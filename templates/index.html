@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automation Logs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #343a40;
+            color: white;
+        }
+        .card {
+            background-color: #1a1e23;
+            border-color: #4a5057;
+        }
+        .pre-wrap {
+            white-space: pre-wrap;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Pinnacle AI - Automation Logs</h1>
+        <div id="accordion">
+            {% for report_name, report_content in reports.items() %}
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link text-white" data-toggle="collapse" href="#collapse{{ loop.index }}">
+                            Automation Log - {{ report_name }} <span>🡇</span>
+                        </a>
+                    </div>
+                    <div id="collapse{{ loop.index }}" class="collapse">
+                        <div class="card-body position-relative">
+                            <span class="copy-button" onclick="copyToClipboard('content{{ loop.index }}')">
+                                <i class="fas fa-clipboard"></i>
+                            </span>
+                            <pre id="content{{ loop.index }}" class="pre-wrap text-white">{{ report_content }}</pre>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            var range = document.createRange();
+            range.selectNode(document.getElementById(elementId));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+        }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

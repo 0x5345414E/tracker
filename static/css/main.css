@@ -1,0 +1,4 @@
+.pre-wrap {
+    white-space: -o-pre-wrap;  /* Opera 7 */
+    white-space: pre-wrap;     /* CSS standard */
+}
